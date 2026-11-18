@@ -1,0 +1,90 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  OSCAL_RELEASE: https://github.com/usnistgov/OSCAL/releases/download/v1.1.2
+
+jobs:
+  lint:
+    name: Lint (Ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install ruff==0.16.9
+      - run: ruff check .
+      - run: ruff format --check .
+
+  test:
+    name: Unit tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+      - name: Run tests (the full-pipeline test is skipped here; the pipeline job runs it)
+        run: pytest --cov=rmf_toolchain --cov-report=term-missing
+
+  pipeline:
+    name: Full RMF pipeline with the pinned tools
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Each pinned tag still points at the commit listed in requirements-tools.txt
+        run: |
+          grep -E '^#\s+[a-z-]+\s+v[0-9]' requirements-tools.txt | while read -r _ repo tag sha; do
+            actual=$(git ls-remote "https://github.com/JulietRodriguez/$repo" "refs/tags/$tag^{}" "refs/tags/$tag" \
+                     | sort -k2 | tail -n1 | cut -c1-${#sha})
+            echo "$repo $tag -> $actual (expected $sha)"
+            test "$actual" = "$sha"
+          done
+      - name: Install the pinned tools and rmf-toolchain
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-tools.txt
+          pip install -e ".[dev]"
+          pip freeze | grep -E '^(security-categorizer|oscal-ssp-generator|boundary-drift-detector|fedramp-control-validator|poam-generator|stig-poam-builder|ato-readiness-checker) @'
+      - name: Synthetic inputs are regenerated identically
+        run: python tools/make_inputs.py --check
+      - name: Download NIST OSCAL 1.1.2 schemas and verify checksums
+        run: |
+          mkdir -p /tmp/nist
+          for f in ssp assessment-results poam profile; do
+            curl -sSfL "$OSCAL_RELEASE/oscal_${f}_schema.json" -o "/tmp/nist/oscal_${f}_schema.json"
+          done
+          (cd /tmp/nist && sha256sum -c "$GITHUB_WORKSPACE/schemas/SHA256SUMS")
+          for f in /tmp/nist/*.json; do cmp "$f" "schemas/$(basename "$f")"; done
+      - name: Run every RMF step and validate every OSCAL output against NIST's schemas
+        run: rmf-toolchain run --inputs inputs --out out --schema-dir /tmp/nist
+      - name: Tests, including the full-pipeline test
+        run: pytest --cov=rmf_toolchain --cov-report=term-missing
+      - name: Publish the package
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rmf-package
+          path: out/
