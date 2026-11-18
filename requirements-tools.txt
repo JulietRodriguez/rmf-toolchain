@@ -1,0 +1,16 @@
+# The tools rmf-toolchain runs, each pinned to a release tag.
+# Tag -> commit. tests/test_pins.py checks the tags; CI checks each tag still points at its commit.
+#   security-categorizer      v0.1.0  82fd945
+#   oscal-ssp-generator       v0.1.0  bd12541
+#   boundary-drift-detector   v0.1.0  b80eca1
+#   fedramp-control-validator v0.1.0  57f177c
+#   poam-generator            v0.6.0  c19d097
+#   stig-poam-builder         v0.1.0  e597b03
+#   ato-readiness-checker     v0.1.0  2d14c36
+security-categorizer @ git+https://github.com/JulietRodriguez/security-categorizer@v0.1.0
+oscal-ssp-generator @ git+https://github.com/JulietRodriguez/oscal-ssp-generator@v0.1.0
+boundary-drift-detector @ git+https://github.com/JulietRodriguez/boundary-drift-detector@v0.1.0
+fedramp-control-validator @ git+https://github.com/JulietRodriguez/fedramp-control-validator@v0.1.0
+poam-generator @ git+https://github.com/JulietRodriguez/poam-generator@v0.6.0
+stig-poam-builder @ git+https://github.com/JulietRodriguez/stig-poam-builder@v0.1.0
+ato-readiness-checker @ git+https://github.com/JulietRodriguez/ato-readiness-checker@v0.1.0
