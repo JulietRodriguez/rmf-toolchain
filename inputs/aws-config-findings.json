@@ -1,0 +1,148 @@
+{
+  "account_id": "111122223333",
+  "region": "us-east-1",
+  "generated": "2026-11-10T14:00:00Z",
+  "description": "SYNTHETIC AWS Config rule evaluations for CMS-DEMO.",
+  "findings": [
+    {
+      "config_rule_name": "iam-password-policy",
+      "resource_type": "AWS::::Account",
+      "resource_id": "111122223333",
+      "compliance_type": "NON_COMPLIANT",
+      "annotation": "Password policy minimum length is 8."
+    },
+    {
+      "config_rule_name": "iam-user-mfa-enabled",
+      "resource_type": "AWS::IAM::User",
+      "resource_id": "cms-admin",
+      "compliance_type": "COMPLIANT",
+      "annotation": null
+    },
+    {
+      "config_rule_name": "root-account-mfa-enabled",
+      "resource_type": "AWS::::Account",
+      "resource_id": "111122223333",
+      "compliance_type": "COMPLIANT",
+      "annotation": null
+    },
+    {
+      "config_rule_name": "access-keys-rotated",
+      "resource_type": "AWS::IAM::User",
+      "resource_id": "cms-admin",
+      "compliance_type": "COMPLIANT",
+      "annotation": null
+    },
+    {
+      "config_rule_name": "iam-policy-no-statements-with-admin-access",
+      "resource_type": "AWS::IAM::Policy",
+      "resource_id": "cms-demo-app",
+      "compliance_type": "COMPLIANT",
+      "annotation": null
+    },
+    {
+      "config_rule_name": "s3-bucket-server-side-encryption-enabled",
+      "resource_type": "AWS::S3::Bucket",
+      "resource_id": "cms-demo-case-files",
+      "compliance_type": "COMPLIANT",
+      "annotation": null
+    },
+    {
+      "config_rule_name": "s3-bucket-server-side-encryption-enabled",
+      "resource_type": "AWS::S3::Bucket",
+      "resource_id": "cms-demo-logs",
+      "compliance_type": "NON_COMPLIANT",
+      "annotation": "No default encryption configuration."
+    },
+    {
+      "config_rule_name": "encrypted-volumes",
+      "resource_type": "AWS::EC2::Volume",
+      "resource_id": "vol-0a1b2c3d4e5f60001",
+      "compliance_type": "COMPLIANT",
+      "annotation": null
+    },
+    {
+      "config_rule_name": "s3-bucket-public-read-prohibited",
+      "resource_type": "AWS::S3::Bucket",
+      "resource_id": "cms-demo-case-files",
+      "compliance_type": "COMPLIANT",
+      "annotation": null
+    },
+    {
+      "config_rule_name": "restricted-ssh",
+      "resource_type": "AWS::EC2::SecurityGroup",
+      "resource_id": "sg-0a1b2c3d4e5f60001",
+      "compliance_type": "NON_COMPLIANT",
+      "annotation": "Port 22 open to 0.0.0.0/0."
+    },
+    {
+      "config_rule_name": "ec2-instance-no-public-ip",
+      "resource_type": "AWS::EC2::Instance",
+      "resource_id": "i-0a1b2c3d4e5f60001",
+      "compliance_type": "COMPLIANT",
+      "annotation": null
+    },
+    {
+      "config_rule_name": "cloudtrail-enabled",
+      "resource_type": "AWS::::Account",
+      "resource_id": "111122223333",
+      "compliance_type": "COMPLIANT",
+      "annotation": null
+    },
+    {
+      "config_rule_name": "multi-region-cloudtrail-enabled",
+      "resource_type": "AWS::::Account",
+      "resource_id": "111122223333",
+      "compliance_type": "COMPLIANT",
+      "annotation": null
+    },
+    {
+      "config_rule_name": "cloud-trail-log-file-validation-enabled",
+      "resource_type": "AWS::CloudTrail::Trail",
+      "resource_id": "cms-demo-trail",
+      "compliance_type": "COMPLIANT",
+      "annotation": null
+    },
+    {
+      "config_rule_name": "vpc-flow-logs-enabled",
+      "resource_type": "AWS::EC2::VPC",
+      "resource_id": "vpc-0a1b2c3d4e5f60001",
+      "compliance_type": "NON_COMPLIANT",
+      "annotation": "VPC flow logs are off."
+    },
+    {
+      "config_rule_name": "cw-loggroup-retention-period-check",
+      "resource_type": "AWS::Logs::LogGroup",
+      "resource_id": "/cms-demo/app",
+      "compliance_type": "COMPLIANT",
+      "annotation": null
+    },
+    {
+      "config_rule_name": "ec2-instance-managed-by-systems-manager",
+      "resource_type": "AWS::EC2::Instance",
+      "resource_id": "i-0a1b2c3d4e5f60003",
+      "compliance_type": "COMPLIANT",
+      "annotation": null
+    },
+    {
+      "config_rule_name": "guardduty-enabled-centralized",
+      "resource_type": "AWS::::Account",
+      "resource_id": "111122223333",
+      "compliance_type": "COMPLIANT",
+      "annotation": null
+    },
+    {
+      "config_rule_name": "ec2-managedinstance-patch-compliance-status-check",
+      "resource_type": "AWS::SSM::PatchCompliance",
+      "resource_id": "i-0a1b2c3d4e5f60002",
+      "compliance_type": "NON_COMPLIANT",
+      "annotation": "2 missing security patches."
+    },
+    {
+      "config_rule_name": "backup-plan-min-frequency-and-min-retention-check",
+      "resource_type": "AWS::Backup::BackupPlan",
+      "resource_id": "cms-demo-daily",
+      "compliance_type": "COMPLIANT",
+      "annotation": null
+    }
+  ]
+}

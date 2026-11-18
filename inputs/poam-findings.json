@@ -1,0 +1,95 @@
+[
+  {
+    "source": "Audit",
+    "detection_date": "2026-11-10",
+    "office_org": "CMS-DEMO Operations (synthetic)",
+    "weakness_name": "SSH open to the internet on the application security group",
+    "weakness_description": "Security group sg-0a1b2c3d4e5f60001 allows port 22 from 0.0.0.0/0.",
+    "security_control": "SC-7",
+    "severity": "High",
+    "scheduled_completion": "2026-12-10",
+    "point_of_contact": "Lead Systems Administrator, CMS-DEMO (synthetic)",
+    "resources_required": "Staff time (synthetic estimate)",
+    "remediation_plan": "Restrict SSH to the bastion subnet",
+    "milestones": [
+      "2026-11-24: Restrict SSH to the bastion subnet",
+      "2026-12-10: Confirm with restricted-ssh rule"
+    ],
+    "status": "In Progress",
+    "comments": "SYNTHETIC"
+  },
+  {
+    "source": "Audit",
+    "detection_date": "2026-11-10",
+    "office_org": "CMS-DEMO Operations (synthetic)",
+    "weakness_name": "VPC flow logs disabled",
+    "weakness_description": "Flow logs are not enabled on the CMS-DEMO VPC.",
+    "security_control": "AU-12",
+    "severity": "Medium",
+    "scheduled_completion": "2027-01-15",
+    "point_of_contact": "ISSO, CMS-DEMO (synthetic)",
+    "resources_required": "Staff time (synthetic estimate)",
+    "remediation_plan": "Enable flow logs to central logging",
+    "milestones": [
+      "2026-12-15: Enable flow logs to central logging",
+      "2027-01-15: Add alerting on rejected flows"
+    ],
+    "status": "Open",
+    "comments": "SYNTHETIC"
+  },
+  {
+    "source": "Audit",
+    "detection_date": "2026-11-10",
+    "office_org": "CMS-DEMO Operations (synthetic)",
+    "weakness_name": "Password policy below agency minimum",
+    "weakness_description": "IAM password policy allows 8-character passwords.",
+    "security_control": "IA-5",
+    "severity": "Medium",
+    "scheduled_completion": "2027-01-31",
+    "point_of_contact": "ISSO, CMS-DEMO (synthetic)",
+    "resources_required": "Staff time (synthetic estimate)",
+    "remediation_plan": "Set 14-character minimum",
+    "milestones": [
+      "2026-12-31: Set 14-character minimum",
+      "2027-01-31: Verify with iam-password-policy rule"
+    ],
+    "status": "Open",
+    "comments": "SYNTHETIC"
+  },
+  {
+    "source": "Audit",
+    "detection_date": "2026-11-10",
+    "office_org": "CMS-DEMO Operations (synthetic)",
+    "weakness_name": "Log bucket has no default encryption",
+    "weakness_description": "Bucket cms-demo-logs has no default encryption configuration.",
+    "security_control": "SC-28",
+    "severity": "Medium",
+    "scheduled_completion": "2027-01-31",
+    "point_of_contact": "Lead Systems Administrator, CMS-DEMO (synthetic)",
+    "resources_required": "Staff time (synthetic estimate)",
+    "remediation_plan": "Enable SSE-KMS on cms-demo-logs",
+    "milestones": [
+      "2027-01-15: Enable SSE-KMS on cms-demo-logs"
+    ],
+    "status": "Open",
+    "comments": "SYNTHETIC"
+  },
+  {
+    "source": "Audit",
+    "detection_date": "2026-11-10",
+    "office_org": "CMS-DEMO Operations (synthetic)",
+    "weakness_name": "Undeclared S3 bucket in the account",
+    "weakness_description": "Bucket cms-demo-export-tmp exists but is not in the SSP inventory.",
+    "security_control": "CM-8",
+    "severity": "High",
+    "scheduled_completion": "2026-12-17",
+    "point_of_contact": "ISSO, CMS-DEMO (synthetic)",
+    "resources_required": "Staff time (synthetic estimate)",
+    "remediation_plan": "Decide: delete or add to the SSP and assess",
+    "milestones": [
+      "2026-12-03: Decide: delete or add to the SSP and assess"
+    ],
+    "status": "Open",
+    "comments": "SYNTHETIC"
+  }
+]
