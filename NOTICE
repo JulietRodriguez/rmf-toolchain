@@ -1,0 +1,7 @@
+rmf-toolchain
+Copyright 2026 Juliet Rodriguez
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+inputs/stig and inputs/cci are copied from stig-poam-builder (Apache-2.0, same author).
+schemas/ holds unmodified NIST OSCAL schemas (U.S. Government works).

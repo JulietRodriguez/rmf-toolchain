@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rmf-toolchain"
+version = "0.1.0"
+description = "Runs one synthetic system through every NIST RMF step with Juliet Rodriguez's open-source GRC tools, passing OSCAL between them."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [{ name = "Juliet Rodriguez" }]
+keywords = ["rmf", "oscal", "nist-800-37", "ato", "grc", "pipeline", "compliance-as-code"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security",
+]
+# The tools themselves are pinned in requirements-tools.txt.
+dependencies = ["jsonschema>=4.17"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4", "pytest-cov>=4.1", "ruff==0.16.9"]
+
+[project.scripts]
+rmf-toolchain = "rmf_toolchain.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+addopts = "-ra"
+
+[tool.coverage.run]
+source = ["rmf_toolchain"]
+branch = true
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+src = ["src", "tests", "tools"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF", "C4", "PIE"]
+ignore = ["RUF001", "RUF002", "RUF003"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["E501"]
+"tools/make_inputs.py" = ["E501"]
